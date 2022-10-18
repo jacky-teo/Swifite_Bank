@@ -35,27 +35,29 @@ CREATE TABLE `loans` (
 -- INERT LOANS --
 INSERT INTO `loans` (`loan_id`, `business_id`, `loan_amount`, `loan_duration`, `loan_start_date`, `loan_interest`) VALUES
 (1, 3, 10000, 12, '2021-01-01', 5),
-(2, 3, 20000, 24, '2021-01-01', 5),
-(3, 3, 30000, 36, '2021-01-01', 5);
+(2, 3, 20000, 24, '2021-01-01', 25),
+(3, 3, 30000, 36, '2021-01-01', 15);
+(4, 3, 30000, 36, '2021-01-01', 35);
+(5, 3, 30000, 36, '2021-01-01', 15);
 
 -- Customer_loan --
 -- Path: backend\db\swiftiebank.sql
-DROP TABLE IF EXISTS `customer_loan`;
-CREATE TABLE `customer_loan` (
+DROP TABLE IF EXISTS `customer_loans`;
+CREATE TABLE `customer_loans` (
   `customer_id` int(11) NOT NULL,
   `loan_id` int(11) NOT NULL,
+  `customer_loans`Float NOT NULL,
   FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`),
   FOREIGN KEY (`loan_id`) REFERENCES `loans`(`loan_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- INSERT CUSTOMER_LOAN --
-INSERT INTO `customer_loan` (`customer_id`, `loan_id`) VALUES
-(1, 1),
-(2, 1),
-(1, 2),
-(2, 2),
-(1, 3),
-(2, 3);
+INSERT INTO `customer_loans` (`customer_id`, `loan_id`,`customer_loans`) VALUES
+(1, 1, 1000),
+(2, 1, 1000);
+(2, 2, 1000);
+(1, 2, 1000);
+
 
 -- Payments -- 
 -- Path: backend\db\swiftiebank.sql
