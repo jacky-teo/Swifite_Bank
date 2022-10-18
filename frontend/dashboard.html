@@ -65,7 +65,7 @@
                             <tbody>
                                 <tr v-for="(payment, index) in payments" :key="index">
                                     <th scope="row">{{index + 1}}</th>
-                                    <td>{{payment.payment_amount}}</td>
+                                    <td>${{payment.payment_amount}}</td>
                                     <td>{{payment.payment_date}}</td>
                                 </tr>
                             </tbody>
@@ -86,15 +86,15 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
-                                    <th scope="col">Duration</th>
+                                    <th scope="col">Duration  (Months)</th>
                                     <th scope="col">Start Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(loan, index) in loansInvested" :key="index">
                                     <th scope="row">{{index + 1}}</th>
-                                    <td>{{loan.loan_amount}}</td>
-                                    <td>{{loan.loan_interest}}</td>
+                                    <td>${{loan.loan_amount}}</td>
+                                    <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
                                     <td>{{loan.loan_start_date}}</td>
                                 </tr>
@@ -117,15 +117,15 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
-                                    <th scope="col">Duration</th>
+                                    <th scope="col">Duration (Months)</th>
                                     <th scope="col">Start Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(loan, index) in loansAvailable" :key="index">
                                     <th scope="row">{{index + 1}}</th>
-                                    <td>{{loan.loan_amount}}</td>
-                                    <td>{{loan.loan_interest}}</td>
+                                    <td>${{loan.loan_amount}}</td>
+                                    <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
                                     <td>{{loan.loan_start_date}}</td>
                                 </tr>
