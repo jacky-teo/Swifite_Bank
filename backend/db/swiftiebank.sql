@@ -33,7 +33,7 @@ CREATE TABLE `loans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- INERT LOANS --
-INSERT INTO `loans` (`loan_id`, `business_id`, `loan_amount`, `loan_duration`, `loan_date`, `loan_interest`) VALUES
+INSERT INTO `loans` (`loan_id`, `business_id`, `loan_amount`, `loan_duration`, `loan_start_date`, `loan_interest`) VALUES
 (1, 3, 10000, 12, '2021-01-01', 5),
 (2, 3, 20000, 24, '2021-01-01', 5),
 (3, 3, 30000, 36, '2021-01-01', 5);
