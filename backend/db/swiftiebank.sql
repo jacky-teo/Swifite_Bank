@@ -26,7 +26,7 @@ CREATE TABLE `loans` (
   `business_id` int(11) NOT NULL,
   `loan_amount` int(11) NOT NULL,
   `loan_duration` int(11) NOT NULL,
-  `loan_date` date NOT NULL,
+  `loan_start_date` date NOT NULL,
   `loan_interest` int(11) NOT NULL,
   PRIMARY KEY (`loan_id`),
   FOREIGN KEY (`business_id`) REFERENCES `customers`(`customer_id`)
