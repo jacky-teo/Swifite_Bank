@@ -19,7 +19,7 @@ class CustomerLoans(db.Model):
 
     loan_id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, nullable=False)
-    loan_amount = db.Column(db.float(precision=2), nullable=False)
+    customer_loans = db.Column(db.Float(precision=2), nullable=False)
 
     def __init__(self, loan_id, customer_id, loan_amount):
         self.loan_id = loan_id
@@ -27,7 +27,7 @@ class CustomerLoans(db.Model):
         self.loan_amount = loan_amount
 
     def json(self):
-        return {"loan_id": self.loan_id, "customer_id": self.customer_id, "loan_amount": self.loan_amount}
+        return {"loan_id": self.loan_id, "customer_id": self.customer_id, "customer_loans": self.customer_loans}
     
 # get all customer loans
 @app.route("/customer_loans")

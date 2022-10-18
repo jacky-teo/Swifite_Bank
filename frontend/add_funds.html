@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Funds</title>
+    <!-- bootstrap 5 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Vue CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- AXIOS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container pt-5">
+        <h2 class="my-5">Add Funds</h2>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./dashboard.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Funds
+                </li>
+            </ol>
+        </nav>
+        <div class="rounded-3 bg-light p-5" id="update">
+            <form>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input v-model="amount" type="number" class="form-control"
+                        aria-label="Amount (to the nearest dollar)">
+                </div>
+
+                <button type="button" @click="add" class="btn alert-primary my-3 w-100 p-3">
+                    Add Funds
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    username: "",
+                    id: "",
+                    amount: 0,
+                }
+            },
+            methods: {
+                add() {
+                    axios
+                        .put('http://127.0.0.1:5004/wallets/transaction/' + this.id,
+                            {
+                                add: true,
+                                amount: this.amount
+                            }, {})
+                        .then(response => {
+                            window.location.href = "dashboard.html?username=" + this.username + "&id=" + this.id + "&success=true";
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+            },
+            created() {
+                let urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has("id")) {
+                    this.id = urlParams.get("id");
+                }
+                if (urlParams.has("username")) {
+                    this.username = urlParams.get("username");
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <!-- vue.js -->
+    <script src="https://unpkg.com/vue@next"></script>
+</body>
+
+</html>

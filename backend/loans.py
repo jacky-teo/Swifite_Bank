@@ -40,11 +40,11 @@ class Loans(db.Model):
 # get all loans
 @app.route("/loans")
 def get_all():
-    return jsonify({"loans": [loan.json() for loan in Loans.query.all()]})
+    return jsonify([loan.json() for loan in Loans.query.all()])
 
 # get loan by business_id
-@app.route("/loans/<int:business_id>")
-def find_by_loan_id(business_id):
+@app.route("/loans/business/<int:business_id>")
+def find_by_business_id(business_id):
     loan = Loans.query.filter_by(business_id=business_id).first()
     if loan:
         return jsonify(loan.json())

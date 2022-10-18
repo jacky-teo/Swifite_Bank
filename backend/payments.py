@@ -26,7 +26,7 @@ class Payments(db.Model):
     business_id = db.Column(db.Integer, nullable=False)
     customer_id = db.Column(db.Integer, nullable=False)
     loan_id = db.Column(db.Integer, nullable=False)
-    payment_amount = db.Column(db.float(precision=2), nullable=False)
+    payment_amount = db.Column(db.Float(precision=2), nullable=False)
     payment_date = db.Column(db.Date, nullable=False)
 
     def __init__(self, payment_id, business_id, customer_id, loan_id, payment_amount, payment_date):
@@ -58,7 +58,7 @@ def find_by_payment_id(payment_id):
 def find_by_customer_id(customer_id):
     payment = Payments.query.filter_by(customer_id=customer_id)
     if payment:
-        return jsonify({"payments": [payment.json() for payment in payment]})
+        return jsonify([payment.json() for payment in payment])
     return jsonify({"message": "Payment not found."}), 404
 
 if __name__ == '__main__':

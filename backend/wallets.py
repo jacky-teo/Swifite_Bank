@@ -4,12 +4,12 @@ from os import environ
 from flask_cors import CORS  # enable CORS
 
 app = Flask(__name__)
+cors =CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/swiftiebank'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-cors =CORS(app)
 #   `wallet_id` int(11) NOT NULL AUTO_INCREMENT,
 #   `customer_id` int(11) NOT NULL,
 #   `wallet_balance` int(11) NOT NULL,
@@ -18,7 +18,7 @@ class Wallets(db.Model):
 
     wallet_id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, nullable=False)
-    wallet_balance = db.Column(db.float(precision=2), nullable=False)
+    wallet_balance = db.Column(db.Float(precision=2), nullable=False)
 
     def __init__(self, wallet_id, customer_id, wallet_balance):
         self.wallet_id = wallet_id
@@ -36,15 +36,15 @@ def get_all():
 # get wallet by customer_id
 @app.route("/wallets/<int:customer_id>")
 def find_by_customer_id(customer_id):
-    wallet = Wallets.query.filter_by(customer_id=customer_id)
+    wallet = Wallets.query.filter_by(customer_id=customer_id).first()
     if wallet:
-        return jsonify({"wallets": [wallet.json() for wallet in wallet]})
+        return jsonify(wallet.json())
     return jsonify({"message": "Wallet not found."}), 404
 
 # update funds to wallet
-@app.route("/wallets/<int:customer_id>", methods=['PUT'])
+@app.route("/wallets/transaction/<int:customer_id>", methods=['PUT'])
 def update_funds(customer_id):
-    wallet = Wallets.query.filter_by(customer_id=customer_id)
+    wallet = Wallets.query.filter_by(customer_id=customer_id).first()
     if wallet:
         data = request.get_json()
         if data['add']:
