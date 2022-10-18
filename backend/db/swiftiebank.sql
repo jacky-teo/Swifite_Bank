@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `wallets`;
 CREATE TABLE `wallets` (
   `wallet_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
-  `wallet_balance` int(11) NOT NULL,
+  `wallet_balance` FLOAT NOT NULL,
   PRIMARY KEY (`wallet_id`),
   FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
