@@ -23,13 +23,13 @@ INSERT INTO `customers` (`customer_id`, `username`, `password`, `account_type`) 
 DROP TABLE IF EXISTS `loans`;
 CREATE TABLE `loans` (
   `loan_id` int(11) NOT NULL AUTO_INCREMENT,
-  `business_id` int(11) NOT NULL,
+  `business_name` int(11) NOT NULL,
   `loan_amount` int(11) NOT NULL,
   `loan_duration` int(11) NOT NULL,
   `loan_start_date` date NOT NULL,
   `loan_interest` int(11) NOT NULL,
   PRIMARY KEY (`loan_id`),
-  FOREIGN KEY (`business_id`) REFERENCES `customers`(`customer_id`)
+  FOREIGN KEY (`business_name`) REFERENCES `customers`(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- INERT LOANS --
