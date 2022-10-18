@@ -36,8 +36,8 @@ CREATE TABLE `loans` (
 INSERT INTO `loans` (`loan_id`, `business_id`, `loan_amount`, `loan_duration`, `loan_start_date`, `loan_interest`) VALUES
 (1, 3, 10000, 12, '2021-01-01', 5),
 (2, 3, 20000, 24, '2021-01-01', 25),
-(3, 3, 30000, 36, '2021-01-01', 15);
-(4, 3, 30000, 36, '2021-01-01', 35);
+(3, 3, 30000, 36, '2021-01-01', 15),
+(4, 3, 30000, 36, '2021-01-01', 35),
 (5, 3, 30000, 36, '2021-01-01', 15);
 
 -- Customer_loan --
@@ -54,8 +54,8 @@ CREATE TABLE `customer_loans` (
 -- INSERT CUSTOMER_LOAN --
 INSERT INTO `customer_loans` (`customer_id`, `loan_id`,`customer_loans`) VALUES
 (1, 1, 1000),
-(2, 1, 1000);
-(2, 2, 1000);
+(2, 1, 1000),
+(2, 2, 1000),
 (1, 2, 1000);
 
 
