@@ -86,8 +86,10 @@
                         .then((response) => {
                             console.log(response.data);
                             data = response.data;
+                            console.log(data)
                             if (data.password == this.password) {
-                                this.id = data.customer_id;
+                                this.id = data.customer;
+                                console.log(this.id)
                                 window.location.href = "dashboard.html?username=" + this.username + "&id=" + this.id;
                             }
                             else {

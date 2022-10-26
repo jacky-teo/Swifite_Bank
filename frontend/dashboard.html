@@ -74,6 +74,7 @@
                     </table>
                 </div>
             </div>
+          
             <div class="row">
                 <div class="row fs-2 mb-4">
                     My Investments
@@ -84,19 +85,23 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Loan ID</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
                                     <th scope="col">Duration  (Months)</th>
                                     <th scope="col">Start Date</th>
+                                    <th scope="col">Amount Invested</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(loan, index) in loansInvested" :key="index">
                                     <th scope="row">{{index + 1}}</th>
+                                    <td>{{loan.loan_id}}</td>
                                     <td>${{loan.loan_amount}}</td>
                                     <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
                                     <td>{{loan.loan_start_date}}</td>
+                                    <td>{{loan.amt_invested}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -115,6 +120,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Loan ID</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
                                     <th scope="col">Duration (Months)</th>
@@ -124,6 +130,7 @@
                             <tbody>
                                 <tr v-for="(loan, index) in loansAvailable" :key="index">
                                     <th scope="row">{{index + 1}}</th>
+                                    <td>{{loan.loan}}</td>
                                     <td>${{loan.loan_amount}}</td>
                                     <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
@@ -173,12 +180,22 @@
                     });
                 axios
                     .get("http://127.0.0.1:5005/customer_loans/" + this.id)
-                    .then((response) => {
-                        for (loans of response.data.customer_loans) {
+                    .then((res) => {
+                        var customer_loans = res.data.customer_loans
+                        for(cust of customer_loans){
+                            var amt_invested = cust.customer_loan_amount
+                            var loan_id = cust.loan_id
                             axios
-                                .get("http://127.0.0.1:5002/loans/" + loans.loan_id)
-                                .then((response) => {
-                                    this.loansInvested.push(response.data);
+                                .get("http://127.0.0.1:5002/loans/" +loan_id)
+                                .then((response)=> {
+                                    this.loansInvested.push({
+                                        loan_id: loan_id,
+                                        loan_amount: response.data[0].loan_amount,
+                                        loan_interest: response.data[0].loan_interest,
+                                        loan_duration: response.data[0].loan_duration,
+                                        loan_start_date: response.data[0].loan_start_date,
+                                        amt_invested: amt_invested
+                                    })
                                 })
                         }
                     })
