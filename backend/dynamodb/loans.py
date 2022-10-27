@@ -6,7 +6,7 @@ from flask_cors import CORS  # enable CORS
 
 app = Flask(__name__)
 
-__TableName__ = 'swiftie-loan'
+__TableName__ = 'swiftie-loans'
 
 # columns = ['loan','business','loan_amount','loan_duration','loan_interest']
 
@@ -21,7 +21,7 @@ Table = dynamoDB.Table(__TableName__)
 @app.route("/loans/business/<string:business>")
 def find_by_business(business):
     response = Table.scan(
-        FilterExpression = boto3.dynamodb.conditions.Attr('business').eq(business)
+        FilterExpression = boto3.dynamodb.conditions.Attr('business_id').eq(business)
     )
     if len(response['Items']) > 0:
         return jsonify(response['Items'])
@@ -31,6 +31,7 @@ def find_by_business(business):
 @app.route("/loans")
 def find_all():
     response = Table.scan()
+    print(response)
     if len(response['Items']) > 0:
         return jsonify(response['Items'])
     return jsonify({"message": "Loan not found."}), 404
@@ -39,8 +40,9 @@ def find_all():
 ##Query Loan by loan id
 @app.route("/loans/<string:loan_id>")
 def find_by_loan_id(loan_id):
+    print(loan_id)
     response = Table.scan(
-        FilterExpression = boto3.dynamodb.conditions.Attr('loan').eq(loan_id)
+        FilterExpression = boto3.dynamodb.conditions.Attr('loan_id').eq(loan_id)
     )
     if len(response['Items']) > 0:
         return jsonify(response['Items'])

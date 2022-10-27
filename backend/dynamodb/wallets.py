@@ -31,6 +31,7 @@ def find_by_customer(customer_id):
 @app.route("/wallets")
 def find_all():
     response = Table.scan()
+    print(response)
     if len(response['Items']) > 0:
         return jsonify({"wallets": response['Items']})
     return jsonify({"message": "customer not found."}), 404 
@@ -53,12 +54,13 @@ def update_wallet(customer_id):
         response = Table.scan(
         FilterExpression = boto3.dynamodb.conditions.Attr('customer_id').eq(customer_id)
         )
-        wallet = response['Items'][0]['wallet']
+        print(response['Items'])
+        wallet_id = response['Items'][0]['wallet_id']
         wallet_balance = float(response['Items'][0]['wallet_balance'])
         wallet_balance += data['amount']
         Table.update_item(
             Key={
-                'wallet': wallet
+                'wallet_id': wallet_id
             },
             UpdateExpression='SET wallet_balance = :val1',
             ExpressionAttributeValues={
@@ -74,11 +76,11 @@ def update_wallet(customer_id):
         FilterExpression = boto3.dynamodb.conditions.Attr('customer_id').eq(customer_id)
         )
         wallet_balance = float(response['Items'][0]['wallet_balance'])
-        wallet = response['Items'][0]['wallet']
+        wallet_id = response['Items'][0]['wallet_id']
         wallet_balance -= data['amount']
         Table.update_item(
             Key={
-                'wallet': wallet
+                'wallet_id': wallet_id
             },
             UpdateExpression='SET wallet_balance = :val1',
             ExpressionAttributeValues={

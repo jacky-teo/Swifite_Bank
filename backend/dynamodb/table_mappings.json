@@ -1,0 +1,276 @@
+
+{
+  "rules":[
+    {
+      "rule-type": "selection",
+      "rule-id": "1",
+      "rule-name": "1",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "customers"
+      },
+      "rule-action": "include"
+    },
+    {
+      "rule-type": "selection",
+      "rule-id": "2",
+      "rule-name": "2",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "payments"
+      },
+      "rule-action": "include"
+    },
+    {
+      "rule-type": "selection",
+      "rule-id": "3",
+      "rule-name": "3",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "wallets"
+      },
+      "rule-action": "include"
+    },
+    {
+      "rule-type": "selection",
+      "rule-id": "4",
+      "rule-name": "4",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "customer_loans"
+      },
+      "rule-action": "include"
+    },
+    {
+      "rule-type": "selection",
+      "rule-id": "5",
+      "rule-name": "5",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "loans"
+      },
+      "rule-action": "include"
+    },
+    {
+      "rule-type": "object-mapping",
+      "rule-id": "6",
+      "rule-name": "MapCustomerData",
+      "rule-action":"map-record-to-record",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "customers"
+      },
+       "target-table-name":"swiftie-customer",
+      "mapping-parameters":{
+        "partition-key-name":"customer_id",
+        "attribute-mappings":[
+          {
+            "target-attribute-name":"customer_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_id}"
+          },
+          {
+            "target-attribute-name":"username",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${username}"
+          },
+          {
+            "target-attribute-name":"password",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${password}"
+          },
+          {
+            "target-attribute-name":"account_type",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${account_type}"
+          }
+        ]
+      }
+    },
+    {
+      "rule-type": "object-mapping",
+      "rule-id": "7",
+      "rule-name": "7",
+      "rule-action":"map-record-to-record",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "loans"
+      },
+       "target-table-name":"swiftie-loans",
+      "mapping-parameters":{
+        "partition-key-name":"loan_id",
+        "attribute-mappings":[
+          {
+            "target-attribute-name":"loan_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_id}"
+          },
+          {
+            "target-attribute-name":"busisness",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${busisness_id}"
+          },
+          {
+            "target-attribute-name":"loan_amount",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_amount}"
+          },
+          {
+            "target-attribute-name":"loan_duration",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_duration}"
+          },
+          {
+            "target-attribute-name":"loan_start_date",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_start_date}"
+          },
+          {
+            "target-attribute-name":"loan_interest",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_interest}"
+           }
+
+        ]
+      }
+    },
+    {
+      "rule-type": "object-mapping",
+      "rule-id": "8",
+      "rule-name": "8",
+      "rule-action":"map-record-to-record",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "wallets"
+      },
+    "target-table-name":"swiftie-wallet",
+      "mapping-parameters":{
+        "partition-key-name":"wallet_id",
+        "attribute-mappings":[
+          {
+            "target-attribute-name":"wallet_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${wallet_id}"
+          },
+          {
+            "target-attribute-name":"customer_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_id}"
+          },
+          {
+            "target-attribute-name":"wallet_balance",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${wallet_balance}"
+          }
+        ]
+      }
+    },
+    {
+      "rule-type": "object-mapping",
+      "rule-id": "9",
+      "rule-name": "9",
+      "rule-action":"map-record-to-record",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "customer_loans"
+      },
+      "target-table-name":"swiftie-customer-loans",
+      "mapping-parameters":{
+        "partition-key-name":"customer_loan_id",
+        "attribute-mappings":[
+          {
+            "target-attribute-name":"customer_loan_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_loan_id}"
+          },
+          {
+            "target-attribute-name":"customer_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_id}"
+          },
+          {
+            "target-attribute-name":"loan_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_id}"
+          },
+          {
+            "target-attribute-name":"customer_loan_amount",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_loan_amount}"
+          }
+        ]
+      }
+    },
+        {
+      "rule-type": "object-mapping",
+      "rule-id": "10",
+      "rule-name": "10",
+      "rule-action":"map-record-to-record",
+      "object-locator": {
+        "schema-name": "swiftiebank",
+        "table-name": "payments"
+      },
+        "target-table-name":"swiftie-payment",
+      "mapping-parameters":{
+        "partition-key-name":"payment_id",
+        "attribute-mappings":[
+          {
+            "target-attribute-name":"payment_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${payment_id}"
+          },
+          {
+            "target-attribute-name":"business_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${business_id}"
+          },
+          {
+            "target-attribute-name":"customer_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${customer_id}"
+          },
+          {
+            "target-attribute-name":"loan_id",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${loan_id}"
+          },
+          {
+            "target-attribute-name":"payment_amount",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${payment_amount}"
+          },
+          {
+            "target-attribute-name":"payment_date",
+            "attribute-type":"scalar",
+            "attribute-sub-type":"string",
+            "value":"${payment_date}"
+          }
+        ]
+      }
+    }
+
+  ]
+}
+            

@@ -14,7 +14,7 @@ __TableName__ = 'swiftie-customer'
 
 client = boto3.client('dynamodb').list_tables()
 
-dynamoDB = boto3.resource('dynamodb')
+dynamoDB = boto3.resource('dynamodb', region_name='us-east-1')
 
 Table = dynamoDB.Table(__TableName__)
 

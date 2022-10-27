@@ -85,7 +85,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Loan ID</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
                                     <th scope="col">Duration  (Months)</th>
@@ -96,7 +95,6 @@
                             <tbody>
                                 <tr v-for="(loan, index) in loansInvested" :key="index">
                                     <th scope="row">{{index + 1}}</th>
-                                    <td>{{loan.loan_id}}</td>
                                     <td>${{loan.loan_amount}}</td>
                                     <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
@@ -120,7 +118,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Loan ID</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
                                     <th scope="col">Duration (Months)</th>
@@ -130,7 +127,6 @@
                             <tbody>
                                 <tr v-for="(loan, index) in loansAvailable" :key="index">
                                     <th scope="row">{{index + 1}}</th>
-                                    <td>{{loan.loan}}</td>
                                     <td>${{loan.loan_amount}}</td>
                                     <td>{{loan.loan_interest}}%</td>
                                     <td>{{loan.loan_duration}}</td>
@@ -165,7 +161,7 @@
                     this.username = urlParams.get("username");
                 }
                 if (urlParams.has("id")) {
-                    this.id = urlParams.get("id");
+                    this.id = urlParams.get("id").toString();
                 }
                 if (urlParams.has("success")) {
                     this.success = urlParams.get("success");
@@ -185,6 +181,7 @@
                         for(cust of customer_loans){
                             var amt_invested = cust.customer_loan_amount
                             var loan_id = cust.loan_id
+                            console.log(loan_id)
                             axios
                                 .get("http://127.0.0.1:5002/loans/" +loan_id)
                                 .then((response)=> {

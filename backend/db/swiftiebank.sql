@@ -44,6 +44,7 @@ INSERT INTO `loans` (`loan_id`, `business_id`, `loan_amount`, `loan_duration`, `
 -- Path: backend\db\swiftiebank.sql
 DROP TABLE IF EXISTS `customer_loans`;
 CREATE TABLE `customer_loans` (
+  `customer_loan_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `loan_id` int(11) NOT NULL,
   `customer_loans`Float NOT NULL,
@@ -52,11 +53,11 @@ CREATE TABLE `customer_loans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- INSERT CUSTOMER_LOAN --
-INSERT INTO `customer_loans` (`customer_id`, `loan_id`,`customer_loans`) VALUES
-(1, 1, 1000),
-(2, 1, 1000),
-(2, 2, 1000),
-(1, 2, 1000);
+INSERT INTO `customer_loans` (`customer_loan_id`,`customer_id`, `loan_id`,`customer_loans`) VALUES
+(1,1, 1, 1000),
+(2,2, 1, 1000),
+(3,2, 2, 1000),
+(4,1, 2, 1000);
 
 
 -- Payments -- 
