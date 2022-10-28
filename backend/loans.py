@@ -19,12 +19,12 @@ cors =CORS(app)
 #   `loan_interest` int(11) NOT NULL,
 class Loans(db.Model):
     __tablename__ = 'loans'
-    loan_id = db.Column(db.Integer, primary_key=True)
+    loan_id = db.Column(db.String(255), primary_key=True)
     business_id = db.Column(db.String(255), nullable=False)
-    loan_amount = db.Column(db.Integer, nullable=False)
-    loan_duration = db.Column(db.Integer, nullable=False)
-    loan_start_date = db.Column(db.Date, nullable=False)
-    loan_interest = db.Column(db.Integer, nullable=False)
+    loan_amount = db.Column(db.String(255), nullable=False)
+    loan_duration = db.Column(db.String(255), nullable=False)
+    loan_start_date = db.Column(db.String(255), nullable=False)
+    loan_interest = db.Column(db.String(255), nullable=False)
 
     def __init__(self, loan_id, business_id, loan_amount, loan_duration, loan_start_date, loan_interest):
         self.loan_id = loan_id

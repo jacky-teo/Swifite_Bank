@@ -16,9 +16,9 @@ db = SQLAlchemy(app)
 class Wallets(db.Model):
     __tablename__ = 'wallets'
 
-    wallet_id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, nullable=False)
-    wallet_balance = db.Column(db.Float(precision=2), nullable=False)
+    wallet_id = db.Column(db.String(255), primary_key=True)
+    customer_id = db.Column(db.String(255), nullable=False)
+    wallet_balance = db.Column(db.String(255), nullable=False)
 
     def __init__(self, wallet_id, customer_id, wallet_balance):
         self.wallet_id = wallet_id

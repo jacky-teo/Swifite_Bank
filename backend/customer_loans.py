@@ -17,9 +17,9 @@ cors =CORS(app)
 class CustomerLoans(db.Model):
     __tablename__ = 'customer_loans'
 
-    loan_id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, nullable=False)
-    customer_loans = db.Column(db.Float(precision=2), nullable=False)
+    loan_id = db.Column(db.String(255), primary_key=True)
+    customer_id = db.Column(db.String(255), nullable=False)
+    customer_loans = db.Column(db.String(255), nullable=False)
 
     def __init__(self, loan_id, customer_id, loan_amount):
         self.loan_id = loan_id

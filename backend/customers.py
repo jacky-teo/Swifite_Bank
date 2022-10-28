@@ -18,7 +18,7 @@ cors =CORS(app)
 class Customer(db.Model):
     __tablename__ = 'customers'
 
-    customer_id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.String(255), primary_key=True)
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     account_type = db.Column(db.String(255), nullable=False)

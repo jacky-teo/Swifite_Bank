@@ -22,12 +22,12 @@ cors =CORS(app)
 class Payments(db.Model):
     __tablename__ = 'payments'
 
-    payment_id = db.Column(db.Integer, primary_key=True)
-    business_id = db.Column(db.Integer, nullable=False)
-    customer_id = db.Column(db.Integer, nullable=False)
-    loan_id = db.Column(db.Integer, nullable=False)
-    payment_amount = db.Column(db.Float(precision=2), nullable=False)
-    payment_date = db.Column(db.Date, nullable=False)
+    payment_id = db.Column(db.String(255), primary_key=True)
+    business_id = db.Column(db.String(255), nullable=False)
+    customer_id = db.Column(db.String(255), nullable=False)
+    loan_id = db.Column(db.String(255), nullable=False)
+    payment_amount = db.Column(db.String(255), nullable=False)
+    payment_date = db.Column(db.String(255), nullable=False)
 
     def __init__(self, payment_id, business_id, customer_id, loan_id, payment_amount, payment_date):
         self.payment_id = payment_id
