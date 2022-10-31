@@ -47,13 +47,13 @@ CREATE TABLE `customer_loans` (
   `customer_loan_id` varchar(11) NOT NULL,
   `customer_id` varchar(11) NOT NULL,
   `loan_id` varchar(11) NOT NULL,
-  `customer_loans`varchar(11) NOT NULL,
+  `customer_loan_amount`varchar(11) NOT NULL,
   FOREIGN KEY (`customer_id`) REFERENCES `customers`(`customer_id`),
   FOREIGN KEY (`loan_id`) REFERENCES `loans`(`loan_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- INSERT CUSTOMER_LOAN --
-INSERT INTO `customer_loans` (`customer_loan_id`,`customer_id`, `loan_id`,`customer_loans`) VALUES
+INSERT INTO `customer_loans` (`customer_loan_id`,`customer_id`, `loan_id`,`customer_loan_amount`) VALUES
 ('1','1', '1', '1000'),
 ('2','2', '1', '1000'),
 ('3','2', '2', '1000'),
