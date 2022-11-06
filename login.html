@@ -82,7 +82,7 @@
                     this.errorMsgs.password = "";
                     this.errorMsgs.error = "";
                     axios
-                        .get("http://n-swiftie-balancer-095abd14b57c09ce.elb.us-east-1.amazonaws.com:5001/customer/" + this.username)
+                        .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/customer?service=login&username=" + this.username)
                         .then((response) => {
                             console.log(response.data);
                             data = response.data;
