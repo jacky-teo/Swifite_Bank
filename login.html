@@ -82,7 +82,7 @@
                     this.errorMsgs.password = "";
                     this.errorMsgs.error = "";
                     axios
-                        .get("http://172.33.249.0:5001/customer/" + this.username)
+                        .get("http://127.0.0.1:5001/customer/" + this.username)
                         .then((response) => {
                             console.log(response.data);
                             data = response.data;
