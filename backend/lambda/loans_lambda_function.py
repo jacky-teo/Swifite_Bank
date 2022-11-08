@@ -42,7 +42,20 @@ def lambda_handler(event, context):
             responseObject['statusCode'] = 200
             responseObject['headers'] = {}
             responseObject['headers']['Content-Type'] = 'application/json'
-            responseObject['body'] = json.dumps({"customer_loans": response['Items']})
+            responseObject['body'] = json.dumps(response['Items'])
+            return responseObject
+        return {
+                'statusCode': 404,
+                'body': json.dumps("Loans not found.")
+            }
+    elif serviceType == 'allLoan':
+        response = Table.scan()
+        responseObject ={}
+        if len(response['Items']) > 0:
+            responseObject['statusCode'] = 200
+            responseObject['headers'] = {}
+            responseObject['headers']['Content-Type'] = 'application/json'
+            responseObject['body'] = json.dumps(response['Items'])
             return responseObject
         return {
                 'statusCode': 404,
