@@ -74,7 +74,7 @@
                     </table>
                 </div>
             </div>
-          
+
             <div class="row">
                 <div class="row fs-2 mb-4">
                     My Investments
@@ -87,7 +87,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Interest</th>
-                                    <th scope="col">Duration  (Months)</th>
+                                    <th scope="col">Duration (Months)</th>
                                     <th scope="col">Start Date</th>
                                     <th scope="col">Amount Invested</th>
                                 </tr>
@@ -167,24 +167,24 @@
                     this.success = urlParams.get("success");
                 }
                 axios
-                    .get("http://127.0.0.1:5004/wallets/" + this.id)
+                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/wallet?service=byCustomer&customerID=" + this.id)
                     .then((response) => {
-                        this.wallet_balance = response.data.wallet_balance;
+                        this.wallet_balance = response.data[0].wallet_balance;
                     })
                     .catch((error) => {
                         console.log(error);
                     });
                 axios
-                    .get("http://127.0.0.1:5005/customer_loans/" + this.id)
+                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/customer-loans?service=byCustomer&customerID=" + this.id)
                     .then((res) => {
                         var customer_loans = res.data.customer_loans
-                        for(cust of customer_loans){
+                        for (cust of customer_loans) {
                             var amt_invested = cust.customer_loan_amount
                             var loan_id = cust.loan_id
                             console.log(loan_id)
                             axios
-                                .get("http://127.0.0.1:5002/loans/" +loan_id)
-                                .then((response)=> {
+                                .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/loans?service=byLoan&loanID=" + loan_id)
+                                .then((response) => {
                                     this.loansInvested.push({
                                         loan_id: loan_id,
                                         loan_amount: response.data[0].loan_amount,
@@ -197,14 +197,14 @@
                         }
                     })
                 axios
-                    .get("http://127.0.0.1:5002/loans")
+                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/loans?service=allLoan")
                     .then((response) => {
                         for (loans of response.data) {
                             this.loansAvailable.push(loans);
                         }
                     })
                 axios
-                    .get("http://127.0.0.1:5003/payments/customer/" + this.id)
+                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/payment?service=byCustomer&customerID=" + this.id)
                     .then((response) => {
                         for (payments of response.data) {
                             this.payments.push(payments);
