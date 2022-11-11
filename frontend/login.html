@@ -16,6 +16,19 @@
     <!-- AXIOS -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <!-- api gateway dependencies -->
+    <script type="text/javascript" src="../api/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="../api/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="../api/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="../api/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="../api/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="../api/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="../api/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="../api/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="../api/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="../api/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="../api/apigClient.js"></script>
+
     <title>
         Customer Login
     </title>
@@ -128,6 +141,31 @@
                     );
                 },
             },
+            created() {
+                // api call to retrieve customer details; if details code status 403, redirect to cognito login page
+                // axios
+                //     .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/customer?service=login&username=customer1",
+                //     {
+                //         headers: {"Authorization": "eyJraWQiOiJLaXY1MVlBYXBwdUlRT2NxYmMybzNSSTQxT0kwQTVHbnZlNjdjOVdwdVNnPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyMTk1MjUyOC00ODFmLTRhNzItOWQxMS1jYzE2Njc2YTMwMGEiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNjY3OTc0NjAzLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9iWDc5aHhWemIiLCJleHAiOjE2Njc5NzgyMDMsImlhdCI6MTY2Nzk3NDYwMywidmVyc2lvbiI6MiwianRpIjoiOGU5NTQ5MGEtMThlOS00MjEwLWJhYmEtMmQyNWRhYTI3ZGM2IiwiY2xpZW50X2lkIjoiM2VrODhzc3V0MWFhZ3JxZTJvNjk4MGs5MzAiLCJ1c2VybmFtZSI6ImhhemV5LXRlc3RlciJ9.LmaXQmfLTE1qfoFh7xGHElyhwD5EBkDVEh9TUfFVMJAcqRgcXIYvnVlC7ZHiTNtwDjc-ffzTIamXoNtwiRqe_QEDo-Ovd3o80RWyr9ae9I92siiR4LhetwPfc2uyalu4dcZlXmaoYP-Wh2UuFYjGKc9wddUEIxxkBIw-X2FBWs-6jk3uowjg8iJl5pbd9Tfz3Vg7Wei9V9JB371sdDfQ0zZ8YsMTL2k47cVGRH9VrozRAR5j46joKPWzZWodYY5463Kmyo-bzXn7UU8Vrxx7-mEGqDvSqIikcc3QQXdNYjJDUzzMpYQRm6dLpubWlv8R5VAvAKeHjALPD_lF5eW31w"}
+                //     })
+                //     .then((response) => {
+                //         console.log(response.data);
+                //         data = response.data;
+                //         console.log(data)
+                        
+                //     })
+                //     .catch((error) => {
+                //         let status = error.response.status;
+                //         if (status == 401) {
+                //             window.location.href = "https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://swiftie-app.com/";
+                //         } else {
+                //             console.log(error);
+                //         }
+                //     });
+
+                var apigClient = apigClientFactory.newClient();
+                console.log(apigClient);
+            }
         });
 
         app.mount("#app");
