@@ -167,6 +167,7 @@
                     loansInvested: [],
                     loansAvailable: [],
                     payments: [],
+                    logoutUrl: "https://swiftie-app.auth.us-east-1.amazoncognito.com/logout?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/frontend/login.html",
                 };
             },
             created() {
@@ -229,6 +230,10 @@
                 addFunds() {
                     window.location.href = "add_funds.html?id=" + this.id + "&username=" + this.username;
                 },
+                logout() {
+                    sessionStorage.clear();
+                    window.location.href = this.logoutUrl;
+                }
             },
         });
 

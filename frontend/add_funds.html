@@ -40,6 +40,10 @@
                 <li class="breadcrumb-item active" aria-current="page">Add Funds
                 </li>
             </ol>
+
+            <button class="btn btn-dark" @click="logout()">
+                Logout
+            </button>
         </nav>
         <div class="rounded-3 bg-light p-5" id="update">
             <form>
@@ -63,6 +67,7 @@
                     username: "",
                     id: "",
                     amount: 0,
+                    logoutUrl: "https://swiftie-app.auth.us-east-1.amazoncognito.com/logout?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/frontend/login.html",
                 }
             },
             methods: {
@@ -79,6 +84,10 @@
                         .catch(error => {
                             console.log(error);
                         });
+                },
+                logout() {
+                    sessionStorage.clear();
+                    window.location.href = this.logoutUrl;
                 }
             },
             created() {

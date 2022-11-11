@@ -30,17 +30,20 @@ if (window.location.href.includes('login.html')) {
     sessionStorage.setItem('clientAuthToken', token);
 
     //if token not available, redirect to login
-    if (token) {
+    if (token !== undefined && token !== '' && token !== null) {
         authToken = token;
     } else {
         toLogin();
     }
 
 //if page is not login page, check if token is available in session storage
-} else if (sessionStorage.getItem("clientAuthToken")) {
-    authToken = sessionStorage.getItem("clientAuthToken");
 } else {
-    toLogin();
+    authToken = sessionStorage.getItem("clientAuthToken");
+
+    //if stored token value not valid, redirect to login
+    if (authToken === undefined || authToken === '' || authToken === null || authToken === "null") {
+        toLogin();
+    }
 }
 
 apigClientFactory.newClient = function (config) {
