@@ -22,7 +22,8 @@
         <h2 class="my-5">Add Funds</h2>
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./dashboard.html">Home</a></li>
+                <li class="breadcrumb-item"><a :href="'dashboard.html?username='+this.username+'&id='+this.id">Home</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Add Funds
                 </li>
             </ol>
@@ -54,11 +55,7 @@
             methods: {
                 add() {
                     axios
-                        .put('http://127.0.0.1:5004/wallets/transaction/' + this.id,
-                            {
-                                add: true,
-                                amount: this.amount
-                            }, {})
+                        .get('https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/wallet?service=updateFunds&amount=' + this.amount + '&customerID=' + this.id)
                         .then(response => {
                             window.location.href = "dashboard.html?username=" + this.username + "&id=" + this.id + "&success=true";
                         })
