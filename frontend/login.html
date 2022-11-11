@@ -146,13 +146,10 @@
                 var params = {};
                 var body = {};
                 var additionalParams = {
-                    //If there are any unmodeled query parameters or headers that need to be sent with the request you can add them here
                     queryParams: {
                         service: 'login',
                         username: 'customer1'
                     },
-                    //token retrieved from cognito sign in
-                    authToken: authToken
                 };
 
                 apigClient.customerGet(params, body, additionalParams)

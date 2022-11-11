@@ -167,7 +167,6 @@ apigClientFactory.newClient = function (config) {
                 body: body
             };
             
-            
             return apiGatewayClient.makeRequest(customerOptionsRequest, authType, additionalParams, config.apiKey);
         };
         
