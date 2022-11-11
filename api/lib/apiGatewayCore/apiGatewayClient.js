@@ -12,7 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
- 
+
 var apiGateway = apiGateway || {};
 apiGateway.core = apiGateway.core || {};
 
@@ -31,6 +31,11 @@ apiGateway.core.apiGatewayClientFactory.newClient = function (simpleHttpClientCo
         if (apiKey !== undefined && apiKey !== '' && apiKey !== null) {
             request.headers['x-api-key'] = apiKey;
         }
+
+        //if authToken present, attach to header
+        if (authToken !== undefined && authToken !== '' && authToken !== null) {
+            request.headers['Authorization'] = authToken;
+        } 
 
         if (request.body === undefined || request.body === '' || request.body === null || Object.keys(request.body).length === 0) {
             request.body = undefined;
