@@ -15,7 +15,7 @@
 
 //global client variables
 var apigClientFactory = {};
-var cognitoLoginUrl = 'https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/frontend/login.html';
+var cognitoLoginUrl = 'https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/login.html';
 var authToken;
 
 //initiate login and redirect user to cognito login page
