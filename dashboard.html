@@ -187,36 +187,16 @@
                 }
 
                 //retrieve wallet balance
-                // axios
-                //     .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/wallet?service=byCustomer&customerID=" + this.id)
-                //     .then((response) => {
-                //         this.wallet_balance = response.data[0].wallet_balance;
-                //     })
-                //     .catch((error) => {
-                //         console.log(error);
-                //     });
                 this.retrieveBalance();
 
                 //retrieve loans invested
                 this.retrieveLoansInvested();
 
                 //retrieve loans available
-                axios
-                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/loans?service=allLoan")
-                    .then((response) => {
-                        for (loans of response.data) {
-                            this.loansAvailable.push(loans);
-                        }
-                    })
+                this.retrieveLoansAvailable();
 
                 //retrieve incoming payments
-                axios
-                    .get("https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/payment?service=byCustomer&customerID=" + this.id)
-                    .then((response) => {
-                        for (payments of response.data) {
-                            this.payments.push(payments);
-                        }
-                    })
+                this.retrievePayments();
             },
             methods: {
                 logout() {
@@ -247,7 +227,7 @@
                     });
                 },
                 //retrieve loan infor
-                retrieveLoanInfo(loan_id) {
+                retrieveLoanInfo(loan_id, amt_invested) {
                     var apigClient = apigClientFactory.newClient();
                     var params = {};
                     var body = {};
@@ -260,7 +240,6 @@
                     apigClient.loansGet(params, body, additionalParams)
                     .then((response) => {
                         data = response.data[0];
-                        console.log(data);
                         this.loansInvested.push({
                             loan_id: loan_id,
                             loan_amount: response.data[0].loan_amount,
@@ -284,13 +263,12 @@
                     apigClient.customerLoansGet(params, body, additionalParams)
                     .then((res) => {
                         var customer_loans = res.data.customer_loans
-                        console.log(customer_loans);
+
                         for (cust of customer_loans) {
-                            var amt_invested = cust.customer_loan_amount
+                            var amt_invested = cust.customer_loans
                             var loan_id = cust.loan_id
-                            console.log(loan_id)
                             
-                            this.retrieveLoanInfo(loan_id);
+                            this.retrieveLoanInfo(loan_id, amt_invested);
                         }
                     })
                     .catch((error) => {
@@ -300,7 +278,55 @@
                             toLogin();
                         }
                     });
-                }
+                },
+                retrieveLoansAvailable() {
+                    var apigClient = apigClientFactory.newClient();
+                    var params = {};
+                    var body = {};
+                    var additionalParams = {
+                        queryParams: {
+                            service: 'allLoan',
+                        },
+                    };
+                    apigClient.loansGet(params, body, additionalParams)
+                    .then((response) => {
+                        for (loans of response.data) {
+                            this.loansAvailable.push(loans);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+
+                        if (error.status == 401) {
+                            toLogin();
+                        }
+                    });
+                },
+                retrievePayments() {
+                    var apigClient = apigClientFactory.newClient();
+                    var params = {};
+                    var body = {};
+                    var additionalParams = {
+                        queryParams: {
+                            service: 'byCustomer',
+                            customerID: this.id,
+                        },
+                    };
+                    
+                    apigClient.paymentGet(params, body, additionalParams)
+                    .then((response) => {
+                        for (payments of response.data) {
+                            this.payments.push(payments);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+
+                        if (error.status == 401) {
+                            toLogin();
+                        }
+                    });
+                },
             },
             computed: {
                 addFundsLink() {

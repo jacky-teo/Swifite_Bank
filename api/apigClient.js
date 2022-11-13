@@ -268,7 +268,7 @@ apigClientFactory.newClient = function (config) {
             
             var paymentGetRequest = {
                 verb: 'get'.toUpperCase(),
-                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                path: pathComponent + uritemplate('/payments').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
                 headers: apiGateway.core.utils.parseParametersToObject(params, []),
                 queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
                 body: body
@@ -286,7 +286,7 @@ apigClientFactory.newClient = function (config) {
             
             var paymentPostRequest = {
                 verb: 'post'.toUpperCase(),
-                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                path: pathComponent + uritemplate('/payments').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
                 headers: apiGateway.core.utils.parseParametersToObject(params, []),
                 queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
                 body: body
@@ -304,7 +304,7 @@ apigClientFactory.newClient = function (config) {
             
             var paymentOptionsRequest = {
                 verb: 'options'.toUpperCase(),
-                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                path: pathComponent + uritemplate('/payments').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
                 headers: apiGateway.core.utils.parseParametersToObject(params, []),
                 queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
                 body: body
