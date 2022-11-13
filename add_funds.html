@@ -68,7 +68,6 @@
                     username: "",
                     id: "",
                     amount: 0,
-                    logoutUrl: "https://swiftie-app.auth.us-east-1.amazoncognito.com/logout?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/login.html",
                 }
             },
             methods: {
@@ -84,7 +83,7 @@
                 },
                 logout() {
                     sessionStorage.clear();
-                    window.location.href = this.logoutUrl;
+                    window.location.href = logoutUrl;
                 }
             },
             created() {

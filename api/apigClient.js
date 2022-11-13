@@ -15,8 +15,27 @@
 
 //global client variables
 var apigClientFactory = {};
-var cognitoLoginUrl = 'https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/login.html';
+
+//url variables
+var baseUrl = "https://swiftie-app.auth.us-east-1.amazoncognito.com/";
+var cognitoParams = "client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=";
+var redirect_uri = "http://localhost/Swifite_Bank/login.html"
+var logout_redirect = "https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/frontend/login.html";
+
+var cognitoLoginUrl = baseUrl + 'login?' + cognitoParams + redirect_uri;
+var logoutUrl = baseUrl + 'logout?' + cognitoParams + logout_redirect;;
 var authToken;
+
+//default customer info
+var customer = {
+    id: 1,
+    username: 'customer1'
+}
+
+//default business info
+var business = {
+    id: 1
+}
 
 //initiate login and redirect user to cognito login page
 function toLogin() {
@@ -51,7 +70,7 @@ apigClientFactory.newClient = function (config) {
     var apigClient = { };
 
     //check if client auth token is set
-    if (!authToken) {
+    if (authToken === undefined || authToken === '' || authToken === null || authToken === "null") {
         toLogin();
     } else {
         if(config === undefined) {
@@ -189,6 +208,24 @@ apigClientFactory.newClient = function (config) {
         };
         
         
+        apigClient.customerLoansOptions = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var customerLoansOptionsRequest = {
+                verb: 'options'.toUpperCase(),
+                path: pathComponent + uritemplate('/customer-loans').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(customerLoansOptionsRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
         apigClient.loansGet = function (params, body, additionalParams) {
             if(additionalParams === undefined) { additionalParams = {}; }
             
@@ -204,6 +241,114 @@ apigClientFactory.newClient = function (config) {
             
             
             return apiGatewayClient.makeRequest(loansGetRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.loansOptions = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var loansOptionsRequest = {
+                verb: 'options'.toUpperCase(),
+                path: pathComponent + uritemplate('/loans').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(loansOptionsRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.paymentGet = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var paymentGetRequest = {
+                verb: 'get'.toUpperCase(),
+                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(paymentGetRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.paymentPost = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var paymentPostRequest = {
+                verb: 'post'.toUpperCase(),
+                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(paymentPostRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.walletGet = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var walletGetRequest = {
+                verb: 'get'.toUpperCase(),
+                path: pathComponent + uritemplate('/wallet').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(walletGetRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.walletPut = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var walletPutRequest = {
+                verb: 'put'.toUpperCase(),
+                path: pathComponent + uritemplate('/wallet').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(walletPutRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.walletPost = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var walletPostRequest = {
+                verb: 'post'.toUpperCase(),
+                path: pathComponent + uritemplate('/wallet').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(walletPostRequest, authType, additionalParams, config.apiKey);
         };
     }
 
