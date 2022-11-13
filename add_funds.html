@@ -33,7 +33,11 @@
 
 <body>
     <div id="app" class="container pt-5">
-        <h2 class="my-5">Add Funds</h2>
+        <h2 class="mt-5">Add Funds</h2>
+
+        <!-- logout button -->
+        <img src="assets/logout.png" alt="" srcset="" @click="logout" style="cursor:pointer; width: 25px;" class="mb-3">
+
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a :href="'dashboard.html?username='+this.username+'&id='+this.id">Home</a>
@@ -72,14 +76,28 @@
             },
             methods: {
                 add() {
-                    axios
-                        .get('https://k8dxd81114.execute-api.us-east-1.amazonaws.com/customer/wallet?service=updateFunds&amount=' + this.amount + '&customerID=' + this.id)
-                        .then(response => {
-                            window.location.href = "dashboard.html?username=" + this.username + "&id=" + this.id + "&success=true";
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        });
+                    var apigClient = apigClientFactory.newClient();
+                    var params = {};
+                    var body = {};
+                    var additionalParams = {
+                        queryParams: {
+                            service: 'updateFunds',
+                            customerID: this.id,
+                            amount: this.amount
+                        },
+                    };
+
+                    apigClient.walletPut(params, body, additionalParams)
+                    .then(response => {
+                        window.location.href = "dashboard.html?username=" + this.username + "&id=" + this.id + "&success=true";
+                    })
+                    .catch(error => {
+                        console.log(error);
+
+                        if (error.status == 401) {
+                            toLogin();
+                        }
+                    });
                 },
                 logout() {
                     sessionStorage.clear();

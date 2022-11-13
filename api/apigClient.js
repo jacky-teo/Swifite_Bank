@@ -20,10 +20,9 @@ var apigClientFactory = {};
 var baseUrl = "https://swiftie-app.auth.us-east-1.amazoncognito.com/";
 var cognitoParams = "client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=";
 var redirect_uri = "http://localhost/Swifite_Bank/login.html"
-var logout_redirect = "https://swiftie-app.auth.us-east-1.amazoncognito.com/login?client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost/Swifite_Bank/frontend/login.html";
 
 var cognitoLoginUrl = baseUrl + 'login?' + cognitoParams + redirect_uri;
-var logoutUrl = baseUrl + 'logout?' + cognitoParams + logout_redirect;;
+var logoutUrl = baseUrl + 'logout?' + cognitoParams + redirect_uri;;
 var authToken;
 
 //default customer info
@@ -298,6 +297,24 @@ apigClientFactory.newClient = function (config) {
         };
         
         
+        apigClient.paymentOptions = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var paymentOptionsRequest = {
+                verb: 'options'.toUpperCase(),
+                path: pathComponent + uritemplate('/payment').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(paymentOptionsRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
         apigClient.walletGet = function (params, body, additionalParams) {
             if(additionalParams === undefined) { additionalParams = {}; }
             
@@ -349,6 +366,24 @@ apigClientFactory.newClient = function (config) {
             
             
             return apiGatewayClient.makeRequest(walletPostRequest, authType, additionalParams, config.apiKey);
+        };
+        
+        
+        apigClient.walletOptions = function (params, body, additionalParams) {
+            if(additionalParams === undefined) { additionalParams = {}; }
+            
+            apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+            
+            var walletOptionsRequest = {
+                verb: 'options'.toUpperCase(),
+                path: pathComponent + uritemplate('/wallet').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+                headers: apiGateway.core.utils.parseParametersToObject(params, []),
+                queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+                body: body
+            };
+            
+            
+            return apiGatewayClient.makeRequest(walletOptionsRequest, authType, additionalParams, config.apiKey);
         };
     }
 
