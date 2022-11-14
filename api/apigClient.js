@@ -21,6 +21,7 @@ var baseUrl = "https://swiftie-app.auth.us-east-1.amazoncognito.com/";
 var cognitoParams = "client_id=3ek88ssut1aagrqe2o6980k930&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=";
 var redirect_uri = "https://swiftiebank.link/"
 
+//url configs
 var cognitoLoginUrl = baseUrl + 'login?' + cognitoParams + redirect_uri;
 var logoutUrl = baseUrl + 'logout?' + cognitoParams + redirect_uri;;
 var authToken;
